@@ -38,3 +38,42 @@ pipeline:
             spec: {}
             type: Cloud
         type: CI
+    - stage:
+        name: dothing
+        identifier: dothing
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Container
+                  name: hello
+                  identifier: hello
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: ubuntu
+                    command: echo ran in ubuntu image
+                    shell: Sh
+                    infrastructure:
+                      type: KubernetesDirect
+                      spec:
+                        connectorRef: mbpk8s
+                        namespace: harness-ci
+                        resources:
+                          limits:
+                            cpu: "0.5"
+                            memory: 500Mi
+                        annotations: {}
+                        labels: {}
+                        containerSecurityContext:
+                          capabilities:
+                            drop: []
+                            add: []
+                        nodeSelector: {}
+                        volumes: []
+                        os: Linux
+                    outputVariables: []
+                    envVariables: {}
+                  timeout: 1m
+        tags: {}
