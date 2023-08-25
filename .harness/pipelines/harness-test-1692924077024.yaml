@@ -38,3 +38,40 @@ pipeline:
             spec: {}
             type: Cloud
         type: CI
+    - stage:
+        name: container hello
+        identifier: container_hello
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: Container
+                  name: say_hello
+                  identifier: say_hello
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: ubuntu:latest
+                    command: echo hello
+                    shell: Sh
+                    infrastructure:
+                      type: KubernetesDirect
+                      spec:
+                        connectorRef: mbp
+                        namespace: harness-test
+                        resources:
+                          limits:
+                            cpu: "0.5"
+                            memory: 500Mi
+                        annotations: {}
+                        labels: {}
+                        containerSecurityContext:
+                          capabilities:
+                            drop: []
+                            add: []
+                        nodeSelector: {}
+                    outputVariables: []
+                    envVariables: {}
+                  timeout: 5m
+        tags: {}
