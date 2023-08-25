@@ -21,6 +21,9 @@ pipeline:
                   identifier: gobuild
                   name: go_build
                   spec:
+                    connectorRef: account.harnessImage
+                    image: golang:1.21
+                    shell: Sh
                     command: go build
                   timeout: ""
                   type: Run
@@ -28,6 +31,9 @@ pipeline:
                   identifier: gotest
                   name: go_test
                   spec:
+                    connectorRef: account.harnessImage
+                    image: golang:1.21
+                    shell: Sh
                     command: go test -v ./...
                   timeout: ""
                   type: Run
